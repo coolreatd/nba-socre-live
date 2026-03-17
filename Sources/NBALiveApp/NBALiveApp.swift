@@ -84,9 +84,9 @@ private final class StatusBarController: NSObject {
 
     private func updateStatusItemAppearance() {
         guard let button = statusItem.button else { return }
-        button.title = " " + store.menuBarTitle
+        button.title = ""
         button.image = NSImage(systemSymbolName: store.menuBarSymbol, accessibilityDescription: "NBA Live")
-        button.imagePosition = .imageLeading
+        button.imagePosition = .imageOnly
         button.appearsDisabled = false
     }
 
