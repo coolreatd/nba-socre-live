@@ -23,6 +23,20 @@
 swift run NBALiveApp
 ```
 
+## 运行效果
+
+### 比赛列表
+
+![比赛列表](docs/screenshots/scoreboard.png)
+
+### 比赛详情
+
+![比赛详情](docs/screenshots/game-detail.png)
+
+### 球员详情
+
+![球员详情](docs/screenshots/player-detail.png)
+
 ## 测试
 
 ```bash
