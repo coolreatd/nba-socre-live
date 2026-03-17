@@ -11,6 +11,8 @@ BUNDLE_ID="com.coolreatd.nba-live"
 VERSION="${1:-v0.1.0}"
 DIST_DIR="$ROOT_DIR/dist/$VERSION"
 STAGING_DIR="$DIST_DIR/staging"
+ICONSET_DIR="$DIST_DIR/AppIcon.iconset"
+ICNS_PATH="$DIST_DIR/AppIcon.icns"
 SWIFTPM_CACHE_DIR="$ROOT_DIR/.cache/swiftpm"
 CLANG_CACHE_DIR="$ROOT_DIR/.cache/clang/ModuleCache"
 
@@ -21,6 +23,10 @@ mkdir -p "$SWIFTPM_CACHE_DIR" "$CLANG_CACHE_DIR"
 
 export CLANG_MODULE_CACHE_PATH="$CLANG_CACHE_DIR"
 export SWIFT_DRIVER_CLANG_MODULE_CACHE_PATH="$CLANG_CACHE_DIR"
+
+rm -rf "$ICONSET_DIR"
+swift scripts/generate_app_icon.swift "$ICONSET_DIR" > /dev/null
+/usr/bin/iconutil -c icns "$ICONSET_DIR" -o "$ICNS_PATH"
 
 build_for_arch() {
   local arch="$1"
@@ -55,6 +61,7 @@ build_for_arch() {
   mkdir -p "$macos_dir" "$resources_dir" "$dmg_staging_dir"
 
   cp "$bin_dir/$EXECUTABLE_NAME" "$macos_dir/$EXECUTABLE_NAME"
+  cp "$ICNS_PATH" "$resources_dir/AppIcon.icns"
   chmod +x "$macos_dir/$EXECUTABLE_NAME"
 
   cat > "$contents_dir/Info.plist" <<EOF
@@ -72,6 +79,8 @@ build_for_arch() {
   <string>$BUNDLE_ID.$label</string>
   <key>CFBundleInfoDictionaryVersion</key>
   <string>6.0</string>
+  <key>CFBundleIconFile</key>
+  <string>AppIcon</string>
   <key>CFBundleName</key>
   <string>$APP_NAME</string>
   <key>CFBundlePackageType</key>
