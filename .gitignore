@@ -4,6 +4,8 @@
 .build/
 Packages/
 Package.resolved
+dist/
+*.dmg
 
 # Xcode / macOS
 DerivedData/
